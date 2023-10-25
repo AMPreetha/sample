@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Times</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style>
+   
+</style>
+</head>
+<body>
+
+    <div class="container pt-5 text-danger">
+        <h2><b>TIME AND DATE</b></h2><br>
+            <div class="card container text-success" style="align-content: center;align-items: center;width: 60%;">
+                <label style="position: absolute;top:5%;">
+                    Enter continent:</label>
+                    <br><br>
+                    <input type="text"  class="conti" name="continent" placeholder="Enter the continent name">
+                <br><br>
+                <label>
+                    Enter state:</label>
+                    <br>
+                    <input type="text"  class="state" name="continent" placeholder="Enter the continent name">
+                
+                <br><br>
+                
+
+                <br><br>
+                <button type="submit" class="button" style="position:absolute;left:40%; top:80%; background-color: blue;color:white;"onclick="update()">Find</button>
+             
+
+
+            </div>
+            <p class="ans">YYYY-MM-DD HH-MM-SS</p>
+  
+</div>
+
+    
+
+    <script >
+        const continent=document.querySelector('.conti');
+        const state=document.querySelector('.state');
+
+        const button = document.querySelector('.button');
+
+
+     async function timeDetector(continent,state){
+       const location=continent+"/"+state;
+       const apiKey="G1LIOX7BDBXJ";
+       const apiUrl=await fetch(`https://api.timezonedb.com/v2.1/get-time-zone?key=${apiKey}&format=json&by=zone&zone=${location}`)
+
+       const data=await apiUrl.json();
+       console.log(data);
+       document.querySelector('.ans').innerHTML=data.formatted;
+
+    } 
+   
+    function update(){
+       let interval= setTimeout(function(){
+             timeDetector(continent.value,state.value);
+        },3000)
+    }
+      
+    </script>
+    
+</body>
+</html>
